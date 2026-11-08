@@ -1,26 +1,357 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import "lenis/dist/lenis.css";
+@import "leaflet/dist/leaflet.css";
+
+/* Alter Creed Gothic / Blackletter Font */
+@font-face {
+  font-family: 'Alter Creed';
+  src: url('/fonts/AlterCreed.otf') format('opentype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-alter-creed {
+  font-family: 'Alter Creed', serif, cursive;
+}
+
+/* Balverd Vintage Editorial Serif Font */
+@font-face {
+  font-family: 'Balverd';
+  src: url('/fonts/Balverd.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-balverd {
+  font-family: 'Balverd', serif;
+}
+
+/* Rasley Heights Signature Font (Final Footer Signature) */
+@font-face {
+  font-family: 'Rasley Heights';
+  src: url('/fonts/RasleyHeights.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-rasley {
+  font-family: 'Rasley Heights', var(--font-rasley-heights), cursive;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary-accent: #07566A;
+  --color-primary-hover: #054454;
+  --color-main-bg: #FFFFFF;
+  --color-secondary-bg: #E8E9E2;
+  --color-main-text: #252A2D;
+  --color-muted-text: #59686B;
+  --color-border: rgba(7, 86, 106, 0.16);
+  --color-btn-bg: #07566A;
+  --color-btn-text: #FFFFFF;
+  --color-glow: rgba(7, 86, 106, 0.20);
+  --color-watermark: #D2D6CF;
+  --color-watermark-outline: #07566A;
+  --color-watermark-stroke-width: 1.8px;
+  --color-watermark-glow: rgba(7, 86, 106, 0.15);
+  --color-ring-offset: #FFFFFF;
+  --portfolio-grad-start: #78B9C2;
+  --portfolio-grad-mid: #07566A;
+  --portfolio-grad-end: #123C4B;
+  --portfolio-radial-glow: rgba(120, 185, 194, 0.18);
+  --portfolio-resume-bg: #07566A;
+  --portfolio-resume-text: #FFFFFF;
+  --portfolio-view-work-bg: #07566A;
+  --portfolio-view-work-text: #FFFFFF;
+  --portfolio-about-bg: #FFFFFF;
+  --portfolio-about-border: rgba(7, 86, 106, 0.22);
+  --portfolio-about-text: #252A2D;
+  --portfolio-quote-border: #07566A;
+  --portfolio-quote-text: #3B484B;
+  --portfolio-divider: #07566A;
+  --portfolio-social-color: #252A2D;
+  --portfolio-skill-card-bg: #FFFFFF;
+  --portfolio-skill-card-border: rgba(7, 86, 106, 0.16);
+  --portfolio-skill-card-border-hover: #07566A;
+  --portfolio-skill-card-shadow: 4px 4px 14px rgba(7, 86, 106, 0.08), -4px -4px 12px rgba(255, 255, 255, 0.95);
+  --portfolio-skill-card-shadow-hover: 0 10px 22px rgba(7, 86, 106, 0.18);
+  --portfolio-skill-logo-bg: #F4F6F3;
+  --portfolio-project-card-bg: #FFFFFF;
+  --portfolio-project-card-border: rgba(7, 86, 106, 0.18);
+  --portfolio-project-card-border-hover: #07566A;
+  --portfolio-project-card-shadow: 0 10px 30px rgba(7, 86, 106, 0.07);
+  --portfolio-project-card-shadow-hover: 0 16px 36px rgba(7, 86, 106, 0.2);
+  --portfolio-project-muted: #59686B;
+  --portfolio-project-tag-bg: #F4F6F3;
+  --portfolio-project-tag-border: rgba(7, 86, 106, 0.18);
+  --portfolio-project-tag-text: #3B484B;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html.dark {
+  --color-primary-accent: #A8D5D8;
+  --color-primary-hover: #C1E6E8;
+  --color-main-bg: #123C4B;
+  --color-secondary-bg: #07566A;
+  --color-main-text: #F5F7F4;
+  --color-muted-text: #C5D7D8;
+  --color-border: rgba(168, 213, 216, 0.22);
+  --color-btn-bg: #A8D5D8;
+  --color-btn-text: #123C4B;
+  --color-glow: rgba(168, 213, 216, 0.25);
+  --color-watermark: #164B5B;
+  --color-watermark-outline: #A8D5D8;
+  --color-watermark-stroke-width: 1.8px;
+  --color-watermark-glow: rgba(168, 213, 216, 0.25);
+  --color-ring-offset: #123C4B;
+  --portfolio-grad-start: #C1E6E8;
+  --portfolio-grad-mid: #A8D5D8;
+  --portfolio-grad-end: #78B9C2;
+  --portfolio-radial-glow: rgba(120, 185, 194, 0.24);
+  --portfolio-resume-bg: #A8D5D8;
+  --portfolio-resume-text: #123C4B;
+  --portfolio-view-work-bg: #A8D5D8;
+  --portfolio-view-work-text: #123C4B;
+  --portfolio-about-bg: #164B5B;
+  --portfolio-about-border: rgba(168, 213, 216, 0.28);
+  --portfolio-about-text: #F5F7F4;
+  --portfolio-quote-border: #78B9C2;
+  --portfolio-quote-text: #C5D7D8;
+  --portfolio-divider: #78B9C2;
+  --portfolio-social-color: #F5F7F4;
+  --portfolio-skill-card-bg: #164B5B;
+  --portfolio-skill-card-border: rgba(168, 213, 216, 0.22);
+  --portfolio-skill-card-border-hover: #A8D5D8;
+  --portfolio-skill-card-shadow: 4px 4px 14px rgba(0, 0, 0, 0.25), -2px -2px 10px rgba(168, 213, 216, 0.03);
+  --portfolio-skill-card-shadow-hover: 0 10px 22px rgba(0, 0, 0, 0.35), 0 0 16px rgba(168, 213, 216, 0.2);
+  --portfolio-skill-logo-bg: rgba(255, 255, 255, 0.08);
+  --portfolio-project-card-bg: #164B5B;
+  --portfolio-project-card-border: rgba(168, 213, 216, 0.22);
+  --portfolio-project-card-border-hover: #A8D5D8;
+  --portfolio-project-card-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --portfolio-project-card-shadow-hover: 0 22px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 213, 216, 0.2);
+  --portfolio-project-muted: #C5D7D8;
+  --portfolio-project-tag-bg: rgba(7, 86, 106, 0.65);
+  --portfolio-project-tag-border: rgba(168, 213, 216, 0.25);
+  --portfolio-project-tag-text: #C5D7D8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.skills-card {
+  box-shadow: var(--portfolio-skill-card-shadow);
+  border-color: var(--portfolio-skill-card-border);
+  transition: border-color 220ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skills-card:hover {
+  border-color: var(--portfolio-skill-card-border-hover);
+  box-shadow: var(--portfolio-skill-card-shadow-hover);
+}
+
+.skills-card:focus-visible {
+  border-color: var(--portfolio-skill-card-border-hover);
+  box-shadow: var(--portfolio-skill-card-shadow-hover);
+  outline: 2px solid var(--portfolio-skill-card-border-hover);
+  outline-offset: 2px;
+}
+
+.project-card {
+  box-shadow: var(--portfolio-project-card-shadow);
+  border-color: var(--portfolio-project-card-border);
+  transition: border-color 220ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  border-color: var(--portfolio-project-card-border-hover);
+  box-shadow: var(--portfolio-project-card-shadow-hover);
+}
+
+.project-card:focus-within {
+  border-color: var(--portfolio-project-card-border-hover);
+}
+
+.project-card:focus-visible {
+  border-color: var(--portfolio-project-card-border-hover);
+  box-shadow: var(--portfolio-project-card-shadow-hover);
+  outline: 2px solid var(--portfolio-project-card-border-hover);
+  outline-offset: 3px;
+}
+
+@theme {
+  --font-alter-creed: 'Alter Creed', serif, cursive;
+  --font-balverd: 'Balverd', serif;
+  --color-accent: var(--color-primary-accent);
+  --color-accent-hover: var(--color-primary-hover);
+  --color-bg-primary: var(--color-main-bg);
+  --color-bg-secondary: var(--color-secondary-bg);
+  --color-text-primary: var(--color-main-text);
+  --color-text-secondary: var(--color-muted-text);
+  --color-border-subtle: var(--color-border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-main-bg);
+  color: var(--color-main-text);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Atmospheric animated Gothic outline highlight */
+.gothic-watermark-outline {
+  color: transparent;
+  -webkit-text-stroke: var(--color-watermark-stroke-width) var(--color-watermark-outline);
+  paint-order: stroke fill;
+  mask-image: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(0, 0, 0, 0.8) 48%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0.8) 52%,
+    transparent 58%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(0, 0, 0, 0.8) 48%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0.8) 52%,
+    transparent 58%,
+    transparent 100%
+  );
+  mask-size: 260% 100%;
+  -webkit-mask-size: 260% 100%;
+  animation: gothicOutlineSheen 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  filter: drop-shadow(0 0 2px var(--color-watermark-glow));
+  will-change: mask-position, -webkit-mask-position;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@keyframes gothicOutlineSheen {
+  0% {
+    mask-position: 140% 0;
+    -webkit-mask-position: 140% 0;
+    opacity: 1;
+  }
+  40% {
+    mask-position: -40% 0;
+    -webkit-mask-position: -40% 0;
+    opacity: 1;
+  }
+  44% {
+    mask-position: -45% 0;
+    -webkit-mask-position: -45% 0;
+    opacity: 0;
+  }
+  45% {
+    mask-position: 140% 0;
+    -webkit-mask-position: 140% 0;
+    opacity: 0;
+  }
+  100% {
+    mask-position: 140% 0;
+    -webkit-mask-position: 140% 0;
+    opacity: 0;
+  }
+}
+
+/* Reduced-motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-typography,
+  .hero-character,
+  .hero-character-float,
+  .hero-role-labels,
+  .hero-cta,
+  .hero-role-mobile {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .gothic-watermark-outline {
+    animation: none !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    opacity: 0.2 !important;
+    filter: none !important;
+  }
+}
+
+/* Leaflet Kolkata Map Custom Teal Theme Styling */
+.kolkata-map-container .leaflet-container {
+  background-color: var(--portfolio-skill-card-bg);
+  font-family: inherit;
+  z-index: 1;
+}
+
+.kolkata-map-container .leaflet-control-zoom {
+  border: 1px solid var(--portfolio-skill-card-border) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.kolkata-map-container .leaflet-control-zoom-in,
+.kolkata-map-container .leaflet-control-zoom-out {
+  background-color: var(--portfolio-skill-card-bg) !important;
+  color: var(--color-main-text) !important;
+  border-bottom: 1px solid var(--portfolio-skill-card-border) !important;
+  width: 30px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+  font-size: 15px !important;
+  transition: all 0.2s ease;
+}
+
+.kolkata-map-container .leaflet-control-zoom-in:hover,
+.kolkata-map-container .leaflet-control-zoom-out:hover {
+  background-color: var(--color-secondary-bg) !important;
+  color: var(--color-primary-accent) !important;
+}
+
+.kolkata-teal-popup .leaflet-popup-content-wrapper {
+  background: var(--portfolio-skill-card-bg) !important;
+  color: var(--color-main-text) !important;
+  border: 1px solid var(--color-primary-accent) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+  padding: 4px 6px !important;
+}
+
+.kolkata-teal-popup .leaflet-popup-tip {
+  background: var(--portfolio-skill-card-bg) !important;
+}
+
+.kolkata-teal-popup .leaflet-popup-close-button {
+  color: var(--color-muted-text) !important;
+  padding: 4px !important;
+}
+
+.kolkata-teal-popup .leaflet-popup-close-button:hover {
+  color: var(--color-primary-accent) !important;
+}
+
+.kolkata-map-container .leaflet-control-attribution {
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  color: #E2E8F0 !important;
+  font-size: 10px !important;
+  padding: 2px 8px !important;
+  backdrop-filter: blur(4px);
+  border-top-left-radius: 6px;
+}
+
+.kolkata-map-container .leaflet-control-attribution a {
+  color: var(--color-primary-accent) !important;
+  text-decoration: underline;
 }
